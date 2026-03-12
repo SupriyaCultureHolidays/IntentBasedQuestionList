@@ -120,7 +120,8 @@ const styles = {
   panel: {
     flex: 1,
     padding: '20px',
-    overflowY: 'auto'
+    overflowY: 'auto',
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
   },
   header: {
     display: 'flex',
@@ -130,8 +131,10 @@ const styles = {
   },
   title: {
     margin: 0,
-    fontSize: '24px',
-    color: '#333'
+    fontSize: '28px',
+    fontWeight: '700',
+    color: '#1f2937',
+    letterSpacing: '-0.4px'
   },
   addBtn: {
     padding: '10px 20px',
@@ -140,7 +143,9 @@ const styles = {
     border: 'none',
     borderRadius: '6px',
     cursor: 'pointer',
-    fontWeight: '600'
+    fontWeight: '600',
+    fontSize: '14px',
+    transition: 'all 0.2s ease'
   },
   list: {
     display: 'flex',
@@ -150,12 +155,16 @@ const styles = {
   loading: {
     textAlign: 'center',
     padding: '40px',
-    color: '#666'
+    color: '#6b7280',
+    fontSize: '16px',
+    fontWeight: '500'
   },
   empty: {
     textAlign: 'center',
     padding: '40px',
-    color: '#999'
+    color: '#9ca3af',
+    fontSize: '16px',
+    fontWeight: '500'
   }
 };
 

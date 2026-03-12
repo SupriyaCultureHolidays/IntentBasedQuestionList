@@ -1,3 +1,5 @@
+import AdvancedPagination from './AdvancedPagination';
+
 const AdminTable = ({ feedbacks, currentPage, onPageChange }) => {
   const itemsPerPage = 20;
   const totalPages = Math.ceil(feedbacks.length / itemsPerPage);
@@ -79,25 +81,11 @@ const AdminTable = ({ feedbacks, currentPage, onPageChange }) => {
       </div>
 
       {totalPages > 1 && (
-        <div style={styles.pagination}>
-          <button
-            onClick={() => onPageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-            style={styles.pageBtn}
-          >
-            Previous
-          </button>
-          <span style={styles.pageInfo}>
-            Page {currentPage} of {totalPages}
-          </span>
-          <button
-            onClick={() => onPageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-            style={styles.pageBtn}
-          >
-            Next
-          </button>
-        </div>
+        <AdvancedPagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={onPageChange}
+        />
       )}
     </div>
   );
@@ -106,83 +94,81 @@ const AdminTable = ({ feedbacks, currentPage, onPageChange }) => {
 const styles = {
   container: {
     background: 'white',
-    borderRadius: '8px',
-    padding: '20px',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+    borderRadius: '12px',
+    padding: '24px',
+    boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+    border: '1px solid rgba(0,0,0,0.05)',
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
   },
   toolbar: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: '16px'
+    marginBottom: '20px'
   },
   info: {
-    color: '#666',
-    fontSize: '14px'
+    color: '#6b7280',
+    fontSize: '16px',
+    fontWeight: '500'
   },
   exportBtn: {
-    padding: '8px 16px',
-    background: '#4caf50',
+    padding: '10px 20px',
+    background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
     color: 'white',
     border: 'none',
-    borderRadius: '6px',
+    borderRadius: '8px',
     cursor: 'pointer',
-    fontWeight: '600'
+    fontWeight: '500',
+    fontSize: '14px',
+    transition: 'all 0.2s ease',
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
   },
   tableWrapper: {
-    overflowX: 'auto'
+    overflowX: 'auto',
+    borderRadius: '8px',
+    border: '1px solid #e5e7eb'
   },
   table: {
     width: '100%',
-    borderCollapse: 'collapse'
+    borderCollapse: 'collapse',
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
   },
   th: {
-    padding: '12px',
+    padding: '16px 12px',
     textAlign: 'left',
-    background: '#f5f5f5',
-    borderBottom: '2px solid #ddd',
+    background: '#f9fafb',
+    borderBottom: '2px solid #e5e7eb',
     fontWeight: '600',
-    color: '#333'
+    color: '#1f2937',
+    fontSize: '14px',
+    letterSpacing: '-0.1px'
   },
   tr: {
-    borderBottom: '1px solid #eee'
+    borderBottom: '1px solid #f3f4f6',
+    transition: 'background-color 0.2s ease'
   },
   td: {
-    padding: '12px',
-    color: '#555'
+    padding: '16px 12px',
+    color: '#374151',
+    fontSize: '14px',
+    fontWeight: '500',
+    lineHeight: '1.4'
   },
   badge: {
     padding: '4px 12px',
-    borderRadius: '12px',
+    borderRadius: '6px',
     fontSize: '12px',
     fontWeight: '600',
-    textTransform: 'uppercase'
+    textTransform: 'uppercase',
+    letterSpacing: '0.3px'
   },
   badgeApproved: {
-    background: '#e8f5e9',
-    color: '#4caf50'
+    background: '#d1fae5',
+    color: '#065f46'
   },
   badgeRejected: {
-    background: '#ffebee',
-    color: '#f44336'
-  },
-  pagination: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: '16px',
-    marginTop: '20px'
-  },
-  pageBtn: {
-    padding: '8px 16px',
-    background: '#667eea',
-    color: 'white',
-    border: 'none',
-    borderRadius: '6px',
-    cursor: 'pointer'
-  },
-  pageInfo: {
-    color: '#666'
+    background: '#fee2e2',
+    color: '#991b1b'
   }
 };
 

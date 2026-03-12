@@ -1,211 +1,182 @@
-import { useState, useEffect, useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { useState, useEffect } from 'react';
 import api from '../api/axios';
-import AdminTable from './AdminTable';
+import AdminLayout from './AdminLayout';
+import DashboardStats from './DashboardStats';
+import CommonQuestions from './CommonQuestions';
+import IntentLeaderboard from './IntentLeaderboard';
+import UserActivity from './UserActivity';
 import toast from 'react-hot-toast';
 
 const AdminDashboard = () => {
-  const [feedbacks, setFeedbacks] = useState([]);
-  const [filteredFeedbacks, setFilteredFeedbacks] = useState([]);
-  const [users, setUsers] = useState([]);
-  const [intents, setIntents] = useState([]);
-  const [filters, setFilters] = useState({ userId: '', intentId: '', decision: '' });
-  const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const { user, logout } = useContext(AuthContext);
+  const [dashboardStats, setDashboardStats] = useState({});
+  const [commonQuestions, setCommonQuestions] = useState([]);
+  const [intentLeaderboard, setIntentLeaderboard] = useState([]);
 
   useEffect(() => {
-    fetchData();
+    fetchDashboardData();
   }, []);
 
-  useEffect(() => {
-    applyFilters();
-  }, [feedbacks, filters]);
-
-  const fetchData = async () => {
+  const fetchDashboardData = async () => {
     setLoading(true);
     try {
-      const [fRes, uRes, iRes] = await Promise.all([
-        api.get('/admin/feedbacks'),
-        api.get('/admin/users'),
-        api.get('/admin/intents')
+      const [statsRes, questionsRes, leaderboardRes] = await Promise.all([
+        api.get('/admin/dashboard-stats'),
+        api.get('/admin/common-questions'),
+        api.get('/admin/intent-leaderboard')
       ]);
-      setFeedbacks(fRes.data.data);
-      setUsers(uRes.data.data);
-      setIntents(iRes.data.data);
+      setDashboardStats(statsRes.data.data);
+      setCommonQuestions(questionsRes.data.data);
+      setIntentLeaderboard(leaderboardRes.data.data);
     } catch (error) {
-      toast.error('Failed to fetch data');
+      toast.error('Failed to fetch dashboard data');
     } finally {
       setLoading(false);
     }
   };
 
-  const applyFilters = () => {
-    let filtered = [...feedbacks];
-
-    if (filters.userId) {
-      filtered = filtered.filter(f => f.userEmail === filters.userId);
-    }
-    if (filters.intentId) {
-      filtered = filtered.filter(f => f.intent === filters.intentId);
-    }
-    if (filters.decision) {
-      filtered = filtered.filter(f => f.decision === filters.decision);
-    }
-
-    setFilteredFeedbacks(filtered);
-    setCurrentPage(1);
+  const navigateToReports = () => {
+    window.location.href = '/reports';
   };
 
-  const handleFilterChange = (key, value) => {
-    setFilters({ ...filters, [key]: value });
-  };
-
-  const resetFilters = () => {
-    setFilters({ userId: '', intentId: '', decision: '' });
+  const handleExportChatbotReady = async () => {
+    try {
+      const response = await api.get('/admin/export-chatbot-ready');
+      const data = response.data.data;
+      
+      if (data.length === 0) {
+        toast.error('No chatbot-ready questions found');
+        return;
+      }
+      
+      const headers = ['Question', 'Intent', 'Approval Rate', 'Total Votes'];
+      const rows = data.map(q => [q.question, q.intent, `${q.approvalRate}%`, q.totalVotes]);
+      
+      const csv = [
+        headers.join(','),
+        ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
+      ].join('\n');
+      
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `chatbot-ready-questions-${Date.now()}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+      
+      toast.success(`Exported ${data.length} chatbot-ready questions`);
+    } catch (error) {
+      toast.error('Failed to export chatbot-ready questions');
+    }
   };
 
   return (
-    <div style={styles.container}>
-      <header style={styles.header}>
-        <h1 style={styles.headerTitle}>Culture Holidays – Admin Panel</h1>
-        <div style={styles.headerRight}>
-          <span style={styles.userName}>{user?.name}</span>
-          <button onClick={logout} style={styles.logoutBtn}>Logout</button>
-        </div>
-      </header>
-
-      <div style={styles.main}>
-        <h2 style={styles.pageTitle}>User-wise FAQ Feedback Report</h2>
-
-        <div style={styles.filters}>
-          <select
-            value={filters.userId}
-            onChange={(e) => handleFilterChange('userId', e.target.value)}
-            style={styles.select}
-          >
-            <option value="">All Users</option>
-            {users.map(u => (
-              <option key={u.email} value={u.email}>{u.name} ({u.email})</option>
-            ))}
-          </select>
-
-          <select
-            value={filters.intentId}
-            onChange={(e) => handleFilterChange('intentId', e.target.value)}
-            style={styles.select}
-          >
-            <option value="">All Intents</option>
-            {intents.map(i => (
-              <option key={i._id} value={i._id}>{i.intentName}</option>
-            ))}
-          </select>
-
-          <select
-            value={filters.decision}
-            onChange={(e) => handleFilterChange('decision', e.target.value)}
-            style={styles.select}
-          >
-            <option value="">All Decisions</option>
-            <option value="approved">Approved</option>
-            <option value="rejected">Rejected</option>
-          </select>
-
-          <button onClick={resetFilters} style={styles.resetBtn}>
-            Reset Filters
-          </button>
+    <AdminLayout>
+      <div style={styles.container}>
+        <div style={styles.header}>
+          <h1 style={styles.title}>Dashboard Overview</h1>
+          <p style={styles.subtitle}>Monitor question consensus and chatbot readiness</p>
         </div>
 
         {loading ? (
-          <div style={styles.loading}>Loading...</div>
+          <div style={styles.loading}>
+            <div style={styles.loadingSpinner}></div>
+            <p style={styles.loadingText}>Loading dashboard...</p>
+          </div>
         ) : (
-          <AdminTable
-            feedbacks={filteredFeedbacks}
-            currentPage={currentPage}
-            onPageChange={setCurrentPage}
-          />
+          <div style={styles.content}>
+            {/* Dashboard Stats */}
+            <DashboardStats stats={dashboardStats} />
+            
+            {/* Main Content Grid */}
+            <div style={styles.contentGrid} className="admin-content-grid">
+              <div style={styles.leftColumn}>
+                <CommonQuestions 
+                  questions={commonQuestions} 
+                  onExportChatbotReady={handleExportChatbotReady}
+                />
+              </div>
+              <div style={styles.rightColumn}>
+                <IntentLeaderboard intents={intentLeaderboard} />
+                <div style={styles.spacer} />
+                <UserActivity inactiveUsers={dashboardStats.inactiveUsers || []} />
+              </div>
+            </div>
+          </div>
         )}
       </div>
-    </div>
+    </AdminLayout>
   );
 };
 
 const styles = {
   container: {
-    display: 'flex',
-    flexDirection: 'column',
     minHeight: '100vh',
-    background: '#f5f5f5'
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
   },
   header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '16px 24px',
-    background: '#667eea',
-    color: 'white',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+    padding: '32px 32px 24px',
+    background: 'white',
+    borderBottom: '1px solid #e5e7eb',
+    marginBottom: '24px'
   },
-  headerTitle: {
+  title: {
     margin: 0,
-    fontSize: '24px'
+    fontSize: '32px',
+    fontWeight: '800',
+    color: '#1f2937',
+    letterSpacing: '-0.5px'
   },
-  headerRight: {
+  subtitle: {
+    margin: '8px 0 0',
+    fontSize: '16px',
+    color: '#6b7280',
+    fontWeight: '500'
+  },
+  content: {
+    padding: '0 32px 32px'
+  },
+  contentGrid: {
+    display: 'grid',
+    gridTemplateColumns: '2fr 1fr',
+    gap: '24px'
+  },
+  leftColumn: {
     display: 'flex',
-    alignItems: 'center',
-    gap: '16px'
+    flexDirection: 'column'
   },
-  userName: {
-    fontSize: '16px'
-  },
-  logoutBtn: {
-    padding: '8px 16px',
-    background: 'white',
-    color: '#667eea',
-    border: 'none',
-    borderRadius: '6px',
-    cursor: 'pointer',
-    fontWeight: '600'
-  },
-  main: {
-    flex: 1,
-    padding: '24px',
-    maxWidth: '1400px',
-    width: '100%',
-    margin: '0 auto'
-  },
-  pageTitle: {
-    margin: '0 0 24px',
-    fontSize: '28px',
-    color: '#333'
-  },
-  filters: {
+  rightColumn: {
     display: 'flex',
-    gap: '12px',
-    marginBottom: '24px',
-    flexWrap: 'wrap'
+    flexDirection: 'column'
   },
-  select: {
-    padding: '10px',
-    fontSize: '14px',
-    border: '1px solid #ddd',
-    borderRadius: '6px',
-    background: 'white',
-    minWidth: '200px'
-  },
-  resetBtn: {
-    padding: '10px 20px',
-    background: '#f44336',
-    color: 'white',
-    border: 'none',
-    borderRadius: '6px',
-    cursor: 'pointer',
-    fontWeight: '600'
+  spacer: {
+    height: '16px'
   },
   loading: {
-    textAlign: 'center',
-    padding: '40px',
-    color: '#666'
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '80px',
+    background: 'white',
+    borderRadius: '12px',
+    boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+    margin: '0 32px'
+  },
+  loadingSpinner: {
+    width: '40px',
+    height: '40px',
+    border: '4px solid #e2e8f0',
+    borderTop: '4px solid #667eea',
+    borderRadius: '50%',
+    animation: 'spin 1s linear infinite',
+    marginBottom: '16px'
+  },
+  loadingText: {
+    fontSize: '16px',
+    color: '#718096',
+    fontWeight: '500'
   }
 };
 

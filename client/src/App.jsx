@@ -5,6 +5,7 @@ import { AuthProvider, AuthContext } from './context/AuthContext';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import AdminDashboard from './components/AdminDashboard';
+import Reports from './components/Reports';
 
 const LoginRoute = () => {
   const { user, loading } = useContext(AuthContext);
@@ -58,6 +59,14 @@ const App = () => {
             element={
               <ProtectedRoute adminOnly>
                 <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/reports"
+            element={
+              <ProtectedRoute adminOnly>
+                <Reports />
               </ProtectedRoute>
             }
           />

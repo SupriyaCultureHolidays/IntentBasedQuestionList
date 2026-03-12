@@ -26,12 +26,15 @@ const styles = {
     background: '#f8f9fa',
     borderRight: '1px solid #e0e0e0',
     padding: '20px',
-    overflowY: 'auto'
+    overflowY: 'auto',
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
   },
   title: {
     margin: '0 0 16px',
-    fontSize: '18px',
-    color: '#333'
+    fontSize: '20px',
+    fontWeight: '700',
+    color: '#1f2937',
+    letterSpacing: '-0.3px'
   },
   list: {
     display: 'flex',
@@ -44,12 +47,16 @@ const styles = {
     borderRadius: '6px',
     cursor: 'pointer',
     border: '1px solid #e0e0e0',
-    transition: 'all 0.2s'
+    transition: 'all 0.2s',
+    fontSize: '14px',
+    fontWeight: '500',
+    color: '#374151'
   },
   itemActive: {
     background: '#667eea',
     color: 'white',
-    borderColor: '#667eea'
+    borderColor: '#667eea',
+    fontWeight: '600'
   }
 };
 

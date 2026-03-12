@@ -50,7 +50,8 @@ const styles = {
   container: {
     display: 'flex',
     flexDirection: 'column',
-    height: '100vh'
+    height: '100vh',
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
   },
   header: {
     display: 'flex',
@@ -63,7 +64,9 @@ const styles = {
   },
   headerTitle: {
     margin: 0,
-    fontSize: '24px'
+    fontSize: '32px',
+    fontWeight: '800',
+    letterSpacing: '-0.5px'
   },
   headerRight: {
     display: 'flex',
@@ -71,7 +74,8 @@ const styles = {
     gap: '16px'
   },
   userName: {
-    fontSize: '16px'
+    fontSize: '16px',
+    fontWeight: '500'
   },
   logoutBtn: {
     padding: '8px 16px',
@@ -80,7 +84,9 @@ const styles = {
     border: 'none',
     borderRadius: '6px',
     cursor: 'pointer',
-    fontWeight: '600'
+    fontWeight: '600',
+    fontSize: '14px',
+    transition: 'all 0.2s ease'
   },
   main: {
     display: 'flex',
