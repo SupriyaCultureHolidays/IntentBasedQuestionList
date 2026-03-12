@@ -1,0 +1,390 @@
+[
+  {
+    "text": "show me all bookings",
+    "intent": "bookings_all"
+  },
+  {
+    "text": "list all my bookings",
+    "intent": "bookings_all"
+  },
+  {
+    "text": "view all bookings",
+    "intent": "bookings_all"
+  },
+  {
+    "text": "get all bookings",
+    "intent": "bookings_all"
+  },
+  {
+    "text": "display bookings",
+    "intent": "bookings_all"
+  },
+  {
+    "text": "all bookings",
+    "intent": "bookings_all"
+  },
+  {
+    "text": "show recent bookings",
+    "intent": "bookings_recent"
+  },
+  {
+    "text": "latest bookings",
+    "intent": "bookings_recent"
+  },
+  {
+    "text": "recent bookings",
+    "intent": "bookings_recent"
+  },
+  {
+    "text": "last 5 bookings",
+    "intent": "bookings_recent"
+  },
+  {
+    "text": "newest bookings",
+    "intent": "bookings_recent"
+  },
+  {
+    "text": "what are my recent bookings",
+    "intent": "bookings_recent"
+  },
+  {
+    "text": "booking status",
+    "intent": "bookings_status"
+  },
+  {
+    "text": "status summary bookings",
+    "intent": "bookings_status"
+  },
+  {
+    "text": "bookings by status",
+    "intent": "bookings_status"
+  },
+  {
+    "text": "booking status summary",
+    "intent": "bookings_status"
+  },
+  {
+    "text": "how many bookings by status",
+    "intent": "bookings_status"
+  },
+  {
+    "text": "booking breakdown",
+    "intent": "bookings_status"
+  },
+  {
+    "text": "first booking",
+    "intent": "bookings_first"
+  },
+  {
+    "text": "oldest booking",
+    "intent": "bookings_first"
+  },
+  {
+    "text": "my first booking",
+    "intent": "bookings_first"
+  },
+  {
+    "text": "earliest booking",
+    "intent": "bookings_first"
+  },
+  {
+    "text": "last booking",
+    "intent": "bookings_last"
+  },
+  {
+    "text": "most recent booking",
+    "intent": "bookings_last"
+  },
+  {
+    "text": "latest booking",
+    "intent": "bookings_last"
+  },
+  {
+    "text": "newest booking",
+    "intent": "bookings_last"
+  },
+  {
+    "text": "my latest booking",
+    "intent": "bookings_last"
+  },
+  {
+    "text": "first 2 bookings",
+    "intent": "bookings_first_two"
+  },
+  {
+    "text": "first two bookings",
+    "intent": "bookings_first_two"
+  },
+  {
+    "text": "oldest 2 bookings",
+    "intent": "bookings_first_two"
+  },
+  {
+    "text": "earliest bookings",
+    "intent": "bookings_first_two"
+  },
+  {
+    "text": "last 2 bookings",
+    "intent": "bookings_last_two"
+  },
+  {
+    "text": "last two bookings",
+    "intent": "bookings_last_two"
+  },
+  {
+    "text": "most recent 2 bookings",
+    "intent": "bookings_last_two"
+  },
+  {
+    "text": "latest 2 bookings",
+    "intent": "bookings_last_two"
+  },
+  {
+    "text": "top 3 bookings",
+    "intent": "bookings_top_three"
+  },
+  {
+    "text": "top 3 bookings by price",
+    "intent": "bookings_top_three"
+  },
+  {
+    "text": "highest value bookings",
+    "intent": "bookings_top_three"
+  },
+  {
+    "text": "most expensive bookings",
+    "intent": "bookings_top_three"
+  },
+  {
+    "text": "show all payments",
+    "intent": "payments_all"
+  },
+  {
+    "text": "list payments",
+    "intent": "payments_all"
+  },
+  {
+    "text": "view payments",
+    "intent": "payments_all"
+  },
+  {
+    "text": "get all payments",
+    "intent": "payments_all"
+  },
+  {
+    "text": "display payments",
+    "intent": "payments_all"
+  },
+  {
+    "text": "all payments",
+    "intent": "payments_all"
+  },
+  {
+    "text": "recent payments",
+    "intent": "payments_recent"
+  },
+  {
+    "text": "latest payments",
+    "intent": "payments_recent"
+  },
+  {
+    "text": "last payments",
+    "intent": "payments_recent"
+  },
+  {
+    "text": "newest payments",
+    "intent": "payments_recent"
+  },
+  {
+    "text": "show recent payments",
+    "intent": "payments_recent"
+  },
+  {
+    "text": "what are my recent payments",
+    "intent": "payments_recent"
+  },
+  {
+    "text": "payment status",
+    "intent": "payments_status"
+  },
+  {
+    "text": "payments by status",
+    "intent": "payments_status"
+  },
+  {
+    "text": "payment status summary",
+    "intent": "payments_status"
+  },
+  {
+    "text": "status of payments",
+    "intent": "payments_status"
+  },
+  {
+    "text": "payment summary",
+    "intent": "payments_status"
+  },
+  {
+    "text": "payment breakdown",
+    "intent": "payments_status"
+  },
+  {
+    "text": "show my profile",
+    "intent": "profile_view"
+  },
+  {
+    "text": "view profile",
+    "intent": "profile_view"
+  },
+  {
+    "text": "my profile",
+    "intent": "profile_view"
+  },
+  {
+    "text": "profile info",
+    "intent": "profile_view"
+  },
+  {
+    "text": "show profile",
+    "intent": "profile_view"
+  },
+  {
+    "text": "profile details",
+    "intent": "profile_details"
+  },
+  {
+    "text": "detailed profile",
+    "intent": "profile_details"
+  },
+  {
+    "text": "full profile",
+    "intent": "profile_details"
+  },
+  {
+    "text": "profile information",
+    "intent": "profile_details"
+  },
+  {
+    "text": "more profile details",
+    "intent": "profile_details"
+  },
+  {
+    "text": "login history",
+    "intent": "login_history"
+  },
+  {
+    "text": "show login history",
+    "intent": "login_history"
+  },
+  {
+    "text": "view login history",
+    "intent": "login_history"
+  },
+  {
+    "text": "login records",
+    "intent": "login_history"
+  },
+  {
+    "text": "all logins",
+    "intent": "login_history"
+  },
+  {
+    "text": "my login history",
+    "intent": "login_history"
+  },
+  {
+    "text": "last login",
+    "intent": "login_last"
+  },
+  {
+    "text": "most recent login",
+    "intent": "login_last"
+  },
+  {
+    "text": "latest login",
+    "intent": "login_last"
+  },
+  {
+    "text": "when did i last login",
+    "intent": "login_last"
+  },
+  {
+    "text": "last login details",
+    "intent": "login_last"
+  },
+  {
+    "text": "login summary",
+    "intent": "login_summary"
+  },
+  {
+    "text": "total logins",
+    "intent": "login_summary"
+  },
+  {
+    "text": "login count",
+    "intent": "login_summary"
+  },
+  {
+    "text": "login statistics",
+    "intent": "login_summary"
+  },
+  {
+    "text": "login overview",
+    "intent": "login_summary"
+  },
+  {
+    "text": "active sessions",
+    "intent": "sessions_active"
+  },
+  {
+    "text": "show active sessions",
+    "intent": "sessions_active"
+  },
+  {
+    "text": "current sessions",
+    "intent": "sessions_active"
+  },
+  {
+    "text": "active user sessions",
+    "intent": "sessions_active"
+  },
+  {
+    "text": "session history",
+    "intent": "sessions_history"
+  },
+  {
+    "text": "all sessions",
+    "intent": "sessions_history"
+  },
+  {
+    "text": "view sessions",
+    "intent": "sessions_history"
+  },
+  {
+    "text": "session records",
+    "intent": "sessions_history"
+  },
+  {
+    "text": "past sessions",
+    "intent": "sessions_history"
+  },
+  {
+    "text": "session summary",
+    "intent": "sessions_summary"
+  },
+  {
+    "text": "total sessions",
+    "intent": "sessions_summary"
+  },
+  {
+    "text": "session count",
+    "intent": "sessions_summary"
+  },
+  {
+    "text": "session statistics",
+    "intent": "sessions_summary"
+  },
+  {
+    "text": "session overview",
+    "intent": "sessions_summary"
+  }
+]
